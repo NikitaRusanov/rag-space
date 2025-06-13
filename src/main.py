@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 
+from config import setting
 
 app = FastAPI(title="rag-space")
 
@@ -11,4 +12,6 @@ async def is_alive():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app="main:app", reload=True)
+    uvicorn.run(
+        app="main:app", reload=True, host=setting.run.host, port=setting.run.port
+    )
