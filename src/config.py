@@ -7,6 +7,10 @@ class RunConfig(BaseModel):
     port: int = 8000
 
 
+class EmbeddingConfig(BaseModel):
+    model_name: str
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(".env.template", ".env"),
@@ -16,6 +20,7 @@ class Settings(BaseSettings):
     )
 
     run: RunConfig = RunConfig()
+    embeddings: EmbeddingConfig
 
 
-setting = Settings()
+settings = Settings()
