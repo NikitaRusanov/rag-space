@@ -1,10 +1,22 @@
 from fastapi import FastAPI
 import uvicorn
+from contextlib import asynccontextmanager
 
 from config import settings
 from api import router as api_router
+from services.vectore_store import get_vectore_store
 
-app = FastAPI(title="rag-space")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    store = await get_vectore_store()
+    await store.client.connect()
+    await store.init_collection()
+    yield
+    await store.client.close()
+
+
+app = FastAPI(title="rag-space", lifespan=lifespan)
 
 app.include_router(api_router)
 
