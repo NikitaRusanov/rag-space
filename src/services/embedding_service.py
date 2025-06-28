@@ -6,7 +6,7 @@ from config import settings
 
 class EmbeddingService:
     def __init__(self) -> None:
-        self.model = OllamaEmbeddings(
+        self.model = OllamaEmbeddings(  # TODO: Need to replace langchain_ollama with original ollama libary
             model=settings.embeddings.model_name,
         )
 
